@@ -38,3 +38,6 @@ next-env.d.ts
 #somefiles
 /design_figma
 /database_design_ERD
+
+#environment variables
+.env

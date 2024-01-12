@@ -1,11 +1,13 @@
-import Adminstarator from './components/Admin/adminstarator'
 import HomePage from './components/Home'
+import CreateUserForm from './components/CreateUser/CreateUserForm'
+import UsersPage from './components/showUsers/ShowUsers'
 
 export default function Home() {
   return (
     <main className='w-full'>
       <HomePage />
-      <Adminstarator />
+      <CreateUserForm />
+      <UsersPage />
     </main>
   )
 }

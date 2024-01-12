@@ -10,7 +10,7 @@ interface PasswordInputProps {
 
 const PasswordInput: React.FC<PasswordInputProps> = ({ value, onChange, showPassword, onTogglePasswordVisibility }) => {
   return (
-    <div className="flex w-3/4 border-b border-stone-400">
+    <div className="flex w-3/4 border-b bg-white border-stone-400">
       <input
         id="password"
         name="password"
@@ -18,7 +18,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ value, onChange, showPass
         type={showPassword ? 'text' : 'password'}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-11/12 text-sm outline-none"
+        className="w-11/12 text-sm outline-none bg-white"
       />
       <span onClick={onTogglePasswordVisibility} className="text-stone-400 cursor-pointer">
         {showPassword ? <GrFormView size={24} /> : <GrFormViewHide size={24} />}

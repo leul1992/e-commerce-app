@@ -1,6 +1,5 @@
 import React from 'react'
 import {ProductSpecs} from './dummyData'
-import { GrUp } from 'react-icons/gr'
 
 function Description() {
   return (

@@ -3,6 +3,7 @@ import { validPassword, validEmail, validUsername } from "../Validate/Validate";
 import FormError from "./FormError";
 import PasswordInput from "./PasswordInput";
 import Button from "./Button"; // Assuming you have a Button component
+import EnteringChoice from "./EnteringChoice";
 
 interface SignupProps {
   onSubmit: (formData: { username: string; email: string; password: string; repassword: string }) => Promise<void>;
@@ -12,7 +13,7 @@ interface SignupProps {
   alreadyHaveAcc: boolean;
 }
 
-const SignupForm: React.FC<SignupProps> = ({ onSubmit, error, toLogIn, toSignUp, alreadyHaveAcc }) => {
+const SignupForm: React.FC<SignupProps> = ({ onSubmit, error }) => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -69,32 +70,32 @@ const SignupForm: React.FC<SignupProps> = ({ onSubmit, error, toLogIn, toSignUp,
         onSubmit={handleSignupSubmit}
         className="flex w-full sm:w-96 gap-8 py-10 items-center flex-col border rounded-br-xl rounded-tl-xl drop-shadow-md outline outline-2 outline-backGroundGreen"
       >
-        <div className="flex cursor-pointer bg-stone-100 rounded-xl w-32">
-          <Button onClick={toLogIn} active={alreadyHaveAcc} text="Login" />
-          <Button onClick={toSignUp} active={!alreadyHaveAcc} text="Signup" />
-        </div>
+        <EnteringChoice />
 
         <FormError error={(!signupError && error) ? error : signupError} />
 
-        <input
-          type="text"
-          id="username"
-          name="username"
-          placeholder="Username"
-          autoComplete="off"
-          onChange={handleChange}
-          className="w-3/4 text-sm outline-none bg-white border-b border-b-stone-400"
-        />
-
-        <input
-          type="text"
-          id="email"
-          name="email"
-          placeholder="Email"
-          autoComplete="off"
-          onChange={handleChange}
-          className="w-3/4 text-sm outline-none bg-white border-b border-b-stone-400"
-        />
+        <div className="w-3/4">
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Username"
+            autoComplete="off"
+            onChange={handleChange}
+            className="w-full text-sm outline-none bg-white border-b border-b-stone-400"
+          />
+          </div>
+          <div className="w-3/4">
+          <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder="Email"
+            autoComplete="off"
+            onChange={handleChange}
+            className="w-full text-sm outline-none bg-white border-b border-b-stone-400"
+          />
+        </div>
 
         <PasswordInput
           value={formData.password}

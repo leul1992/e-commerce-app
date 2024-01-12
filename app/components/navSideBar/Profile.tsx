@@ -2,7 +2,7 @@
 import React from 'react'
 import ProfileSideDrop from '../profile/profileSideDrops'
 import Image from 'next/image'
-import ProfilePic from '../../assets/day.jpg'
+import ProfilePic from '@/public/day.jpg'
 import { Menu, MenuHandler, MenuList } from '@material-tailwind/react'
 
 

@@ -2,18 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Add this CSS to your styles */
+/* Change the white to any color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+
 .scrollbar-hide {
-    scrollbar-width: thin;
-    scrollbar-color: transparent transparent;
-  }
-  
-  /* For Webkit browsers (Chrome, Safari) */
-  .scrollbar-hide::-webkit-scrollbar {
-    width: 6px;
-  }
-  
-  .scrollbar-hide::-webkit-scrollbar-thumb {
-    background-color: transparent;
-  }
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+/* For Webkit browsers (Chrome, Safari) */
+.scrollbar-hide::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-hide::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
   

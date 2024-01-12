@@ -1,6 +1,6 @@
 'use client'
 import React from 'react';
-import SignupForm from '../components/SignUpLogin/SignupForm';
+import SignupForm from '../SignUpLogin/SignupForm';
 const Home: React.FC = () => {
   const handleSubmit = async (credentials: { username: string; email: string; password: string; repassword: string}) => {
     // Implement your login submission logic here

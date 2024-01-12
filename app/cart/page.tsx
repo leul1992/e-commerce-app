@@ -1,11 +1,9 @@
 import React from 'react'
-import WithNavBar from '../components/WithNavBar'
 import Image from 'next/image'
-import prod from '../assets/laptop.avif'
+import prod from '@/public/phone2.avif'
 import Counter from './Count'
 function pages() {
   return (
-    <WithNavBar>
       <div className='flex flex-col gap-4 mt-6 ml:6 sm:mt-10 sm:ml-24'>
         <h1 className='font-bold'>Total: <span className='font-medium'>2,340Birr</span></h1>
         <div className='flex gap-4'>
@@ -29,7 +27,6 @@ function pages() {
           <button className="bg-backGroundGreen ml-4 mt-6 text-white font-bold px-2 rounded-md py-1 hover:opacity-80">Proceed To CheckOut</button>
         </div>
       </div>
-    </WithNavBar>
   )
 }
 

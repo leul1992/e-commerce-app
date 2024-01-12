@@ -26,7 +26,9 @@ const RatingList: React.FC = () => {
 
       <div className="mt-4">
         {RatingandComment.map((entry: CommentEntry, index: number) => (
-          <div className="flex gap-2 w-full">
+          <div
+          key={index}
+          className="flex gap-2 w-full">
             <div>
               <Image
               width={30}
