@@ -3,12 +3,18 @@ import ProfileSideDrop from '../profile/profileSideDrops'
 import Image from 'next/image'
 import ProfilePic from '@/public/day.jpg'
 import { Menu, MenuHandler, MenuList } from '@material-tailwind/react'
+import { useAppSelector } from '@/lib/hooks'
+import { selectUser } from '@/lib/features/user/userSlice'
+import Link from 'next/link'
 
 
 function Profile() {
     const brightMode = false
+    const {isLoggedIn} = useAppSelector(selectUser);
   return (
     <div>
+      {isLoggedIn ? 
+        <>
         <Menu placement="left">
           <MenuHandler>
             <div className='relative mt-4 mb-4 w-10 h-8'>
@@ -26,7 +32,12 @@ function Profile() {
             <ProfileSideDrop />
           </MenuList>
         </Menu>
-        
+        </> :
+        <Link href='/login'>
+          <div className="bg-backGroundGreen flex items-center justify-center hover:opacity-80 mt-4 mb-4 w-12 h-8 rounded-md text-white font-bold">Login</div>
+        </Link>
+          
+      }
     </div>
   )
 }

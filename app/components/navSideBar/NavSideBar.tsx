@@ -28,7 +28,7 @@ function NavSideBar() {
             <IconContainer icon={<GrSearch size={22} />} />
           </div>
           </PopoverHandler>
-          <PopoverContent placeholder={''} className='border-0'>
+          <PopoverContent className='border-0'>
             <Search />
           </PopoverContent>
         </Popover>
