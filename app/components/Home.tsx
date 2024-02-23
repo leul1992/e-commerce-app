@@ -1,8 +1,7 @@
+'use client'
 import React from 'react'
-import NavSideBar from './navSideBar/NavSideBar'
 import ProductTagSlider from './ProductTag/ProductTagSlider'
 import ShowProducts from './ProductList/ShowProducts'
-
 
 function HomePage() {
   return (

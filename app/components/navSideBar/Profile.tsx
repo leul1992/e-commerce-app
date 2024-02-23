@@ -1,10 +1,8 @@
-'use client'
 import React from 'react'
 import ProfileSideDrop from '../profile/profileSideDrops'
 import Image from 'next/image'
 import ProfilePic from '@/public/day.jpg'
 import { Menu, MenuHandler, MenuList } from '@material-tailwind/react'
-
 
 
 function Profile() {
@@ -24,7 +22,7 @@ function Profile() {
                />
             </div>
           </MenuHandler>
-          <MenuList className={`px-4 py-1 relative outline-none transition-all duration-700 rounded-l-xl ${!brightMode ?'bg-[#44979C]' :'bg-[#44979C] opacity-10'}`}>
+          <MenuList placeholder={''} className={`px-4 py-1 relative outline-none transition-all duration-700 rounded-l-xl ${!brightMode ?'bg-[#44979C]' :'bg-[#44979C] opacity-10'}`}>
             <ProfileSideDrop />
           </MenuList>
         </Menu>

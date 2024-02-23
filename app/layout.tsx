@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import NavSideBar from './components/navSideBar/NavSideBar'
+import StoreProvider from './StoreProvider'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,12 +20,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+            <StoreProvider>
       <div className="flex justify-between">
-        <div className='w-[70%] sm:w-[83%] lg:w-11/12'>{children}</div>
+          <div className='w-[70%] sm:w-[83%] lg:w-11/12'>
+              {children}
+          </div>
         <div className=''>
             <NavSideBar />
         </div>
     </div>
+            </StoreProvider>
       </body>
     </html>
   )

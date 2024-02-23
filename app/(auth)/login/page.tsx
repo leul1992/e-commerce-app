@@ -1,24 +1,16 @@
 'use client'
-import React from 'react';
-import LoginForm from '../SignUpLogin/LoginForm';
+import React, { useEffect } from 'react'
+import LoginForm from '../SignUpLogin/LoginForm'
+import { selectUser } from '@/lib/features/user/userSlice'
+import { useAppSelector } from '@/lib/hooks'
+import { useRouter } from 'next/router';
 
-const Home: React.FC = () => {
-  const handleSubmit = async (credentials: { username: string; password: string }) => {
-    // Implement your login submission logic here
-    console.log('Login submitted:', credentials);
-  };
+// Import statements
 
+function Login() {
   return (
-    <>
-      <LoginForm
-        onSubmit={handleSubmit}
-        error="Error message goes here" // Replace with actual error state
-        alreadyHaveAcc={true} // Replace with actual state
-        toSignUp={() => console.log('Navigate to SignUp')} // Replace with actual navigation logic
-        toLogIn={() => console.log('Navigate to LogIn')} // Replace with actual navigation logic
-      />
-    </>
+    <LoginForm error={''} />
   );
-};
+}
 
-export default Home;
+export default Login;

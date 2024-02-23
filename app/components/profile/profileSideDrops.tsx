@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
+import { useAppSelector } from '@/lib/hooks';
+import { selectUser } from '@/lib/features/user/userSlice';
 
 function ProfileSideDrop() {
     const [isDarkMode, setIsDarkMode] = useState(false);
+    const {isLoggedIn, userData} = useAppSelector(selectUser);
 
     const toggleTheme = () => {
       setIsDarkMode((prevMode) => !prevMode);
@@ -26,6 +29,7 @@ function ProfileSideDrop() {
         </label>
         <span className={`cursor-pointer transition-all duration-700 ${!isDarkMode && 'text-white'} text-xl font-semibold`}>Interaction</span>
         <span className={`cursor-pointer transition-all duration-700 ${!isDarkMode && 'text-white'} text-xl font-semibold`}>Profile</span>
+        {isLoggedIn ? <div>{userData?.username}</div>:""}
     </div>
   )
 }
