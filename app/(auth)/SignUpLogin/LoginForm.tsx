@@ -6,6 +6,7 @@ import EnteringChoice from '../SignUpLogin/EnteringChoice';
 import axios from 'axios';
 import { login } from '@/lib/features/user/userSlice';
 import {useAppDispatch, useAppSelector} from '@/lib/hooks'
+import { useRouter } from 'next/navigation';
 
 interface LoginFormProps {
   error: string;
@@ -18,6 +19,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ error }) => {
   const [loginError, setLoginError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const router = useRouter();
 
   const dispatch = useAppDispatch();
 
@@ -60,7 +62,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ error }) => {
       if (response.status === 200 && response.data.success) {
         // Login successful, handle user data
         dispatch(login(response.data.user));
-        
+        router.push('/')
       } else {
         // Login failed, set error message
         setLoginError(response.data.error || 'Login failed');
