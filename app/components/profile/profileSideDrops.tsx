@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-import { useAppSelector } from '@/lib/hooks';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { selectUser } from '@/lib/features/user/userSlice';
+import { Button } from '@material-tailwind/react';
+import { logout } from '@/lib/features/user/userSlice';
 
 function ProfileSideDrop() {
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -9,6 +11,8 @@ function ProfileSideDrop() {
     const toggleTheme = () => {
       setIsDarkMode((prevMode) => !prevMode);
     };
+
+    const dispatch = useAppDispatch();
 
   return (
     <div className={`flex items-center overflow-hidden gap-4 rounded-l-xl`}>
@@ -29,7 +33,7 @@ function ProfileSideDrop() {
         </label>
         <span className={`cursor-pointer transition-all duration-700 ${!isDarkMode && 'text-white'} text-xl font-semibold`}>Interaction</span>
         <span className={`cursor-pointer transition-all duration-700 ${!isDarkMode && 'text-white'} text-xl font-semibold`}>Profile</span>
-        {isLoggedIn ? <div>{userData?.username}</div>:""}
+        {isLoggedIn ? <button className='bg-yellow-500 h-6 text-white rounded-md w-16 font-bold hover:opacity-75' onClick={()=>dispatch(logout())}>LogOut</button>:""}
     </div>
   )
 }
