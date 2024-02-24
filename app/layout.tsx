@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
             <StoreProvider>
       <div className="flex justify-between">
-          <div className='w-[70%] sm:w-[83%] lg:w-11/12'>
+          <div className='w-[70%] sm:w-[83%] lg:w-11/12 pb-12'>
               {children}
           </div>
         <div className=''>
