@@ -42,10 +42,10 @@ function ShowProducts() {
       <div
         ref={containerRef}
         onScroll={handleScroll}
-        className="grid grid-cols-2 lg:grid-cols-4 w-full sm:w-3/4 lg:w-[480px] h-24 overflow-x-auto gap-2 scrollbar-hide"
+        className="grid grid-cols-2 lg:grid-cols-4 w-full sm:w-3/4 lg:w-3/4 h-24 lg:h-48 overflow-x-auto gap-2 scrollbar-hide"
       >
         {User1.productPic.map((prod, index) => (
-          <Link href="/detail" key={index} className="flex h-[96px] lg:h-[94px] space-x-2">
+          <Link href="/detail" key={index} className="flex h-[96px] lg:h-48 space-x-2">
             <ImageProduct image={prod} />
           </Link>
         ))}

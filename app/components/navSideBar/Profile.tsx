@@ -33,10 +33,11 @@ function Profile() {
           </MenuList>
         </Menu>
         </> :
-        <Link href='/login'>
-          <div className="bg-backGroundGreen flex items-center justify-center hover:opacity-80 mt-4 mb-4 w-12 h-8 rounded-md text-white font-bold">Login</div>
-        </Link>
-          
+        <>
+          <Link href='/login'>
+            <div className="bg-backGroundGreen flex items-center justify-center hover:opacity-80 mt-4 mb-4 w-12 h-8 rounded-md text-white font-bold">Login</div>
+          </Link>
+        </>
       }
     </div>
   )
