@@ -56,7 +56,7 @@ const SignupForm: React.FC<SignupProps> = ({ onSubmit, error }) => {
     setSignupError('');
   
     try {
-      const response = await fetch('http://localhost:4000/api/signup', {
+      const response = await fetch('http://localhost:5000/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

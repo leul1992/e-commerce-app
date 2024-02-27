@@ -2,7 +2,6 @@ import React, { useState, FormEvent, ChangeEvent } from "react";
 import { validPassword, validEmail, validUsername } from "../Validate/Validate";
 import FormError from "./FormError";
 import PasswordInput from "./PasswordInput";
-import Button from "./Button"; // Assuming you have a Button component
 import EnteringChoice from "./EnteringChoice";
 
 interface SignupProps {

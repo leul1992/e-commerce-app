@@ -5,14 +5,27 @@ const bodyParser = require('body-parser');
 const { connectToDb } = require('./database/conn');
 const userRoutes = require('./routes/userRoutes');
 const cors = require('cors');
-const app = express();
-const PORT = process.env.PORT || 4000;
+const cookieParser = require('cookie-parser');
 
-app.use(cors({origin: 'http://localhost:3000'}));
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  }));
+
 app.use(bodyParser.json());
 
+app.use(cookieParser());
+
 connectToDb()
-  .then(() => {
+.then(() => {
+    //use cookie-parser middleware
+
+    // user userRoutes
     app.use('/api/', userRoutes);
     
     app.listen(PORT, () => {

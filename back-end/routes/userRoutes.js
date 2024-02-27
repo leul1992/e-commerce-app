@@ -10,9 +10,10 @@ router.post('/signup', userController.signupUser);
 // Route for user login
 router.post('/login', userController.loginUser);
 
-// Route to update user profile
-router.put('/profile', userController.updateProfile);
+// Route for logout
+router.get('/logout', userController.logout);
 
-router.get('/user/:username', userController.getUser);
+//Route to get user profile
+router.get('/getUserData', userController.getDataFromToken)
 
 module.exports = router;
