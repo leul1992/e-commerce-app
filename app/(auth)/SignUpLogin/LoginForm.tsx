@@ -7,6 +7,7 @@ import axios from 'axios';
 import { login } from '@/lib/features/user/userSlice';
 import {useAppDispatch, useAppSelector} from '@/lib/hooks'
 import { useRouter } from 'next/navigation';
+import { selectUser } from '@/lib/features/user/userSlice';
 
 interface LoginFormProps {
   error: string;
@@ -24,7 +25,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ error }) => {
   const dispatch = useAppDispatch();
 
 
-  const userState = useAppSelector((state) => state.user);
+  const userState = useAppSelector(selectUser);
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -50,18 +51,21 @@ const LoginForm: React.FC<LoginFormProps> = ({ error }) => {
     setLoading(true);
   
     try {
-      const response = await axios.post('http://localhost:4000/api/login', {
+      const response = await axios.post('http://localhost:5000/api/login', {
         username,
-        password
+        password, 
       }, {
         headers: {
           "Content-Type": 'application/json'
-        }
+        },
+        withCredentials: true
       });
   
       if (response.status === 200 && response.data.success) {
         // Login successful, handle user data
         dispatch(login(response.data.user));
+        console.log(response)
+
         router.push('/')
       } else {
         // Login failed, set error message
