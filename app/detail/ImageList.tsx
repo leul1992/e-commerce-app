@@ -1,6 +1,6 @@
 import React from 'react';
 import ImageProduct from '../components/ProductList/ImageProduct';
-import User1 from '../components/ProductList/ProductFiles';
+import user1 from '../components/ProductList/ProductFiles';
 import { GrCart } from 'react-icons/gr';
 import Counter from '../cart/Count';
 
