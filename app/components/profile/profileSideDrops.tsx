@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 function ProfileSideDrop() {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const { isLoggedIn, userData } = useAppSelector(selectUser);
+  const { isLoggedIn } = useAppSelector(selectUser);
 
   const toggleTheme = () => {
     setIsDarkMode((prevMode) => !prevMode);
@@ -18,8 +18,9 @@ function ProfileSideDrop() {
 
   const handleLogout = async () => {
     try {
-      await axios.get('http://localhost:5000/api/logout', { withCredentials: true })
+      await axios.get('/api/users/logout', { withCredentials: true })
       dispatch(logout())
+      window.location.reload();
     } catch (err) {
       console.error(err);
     }
