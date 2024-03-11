@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 interface UserData {
+  data: any;
   id: string;
   username: string;
   email: string;
@@ -18,14 +19,11 @@ export const useUserData = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          'http://localhost:5000/api/getUserData',
-          {
-            withCredentials: true,
-          }
-        );
-        setUserData(response.data);
+        setLoading(true);
+        const response = await axios.get('api/users/loggeduser');
+        setUserData(response.data.data);
       } catch (error:any) {
+        setLoading(true);
         console.error('Error fetching user data:', error.message);
         setError('Error fetching user data');
       } finally {
@@ -34,7 +32,7 @@ export const useUserData = () => {
     };
 
     fetchData();
-  }, []);
+  }, [setUserData]);
 
   return { userData, loading, error };
 };
