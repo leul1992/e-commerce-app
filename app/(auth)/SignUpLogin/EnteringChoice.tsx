@@ -1,22 +1,14 @@
 'use client'
 import React, { useState } from 'react'
-import Button from './Button'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 function EnteringChoice() {
-    const [login, setLogin] = useState(true)
-    const [signup, setSignup] = useState(false)
-    const toSignUP = () => {
-        setLogin(false)
-        setSignup(true)
-    }
-    const toLogin = () => {
-        setLogin(true)
-        setSignup(false)
-    }
+  const pathName = usePathname()
   return (
     <div className="flex cursor-pointer bg-stone-100 rounded-xl w-32">
-        <Button onClick={toLogin} active={login} text="Login" />
-        <Button onClick={toSignUP} active={signup} text="Signup" />
+        <Link href="/login" className={`flex rounded-xl justify-center w-1/2 ${pathName === '/login' ? 'bg-backGroundGreen text-white' : 'text-black'}`}>Login</Link>
+        <Link href="/signup" className={`flex rounded-xl justify-center w-1/2 ${pathName === '/signup' ? 'bg-backGroundGreen text-white' : 'text-black'}`}>Signup</Link>
     </div>
   )
 }

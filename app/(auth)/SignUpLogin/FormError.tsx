@@ -5,7 +5,7 @@ interface FormErrorProps {
 }
 
 const FormError: React.FC<FormErrorProps> = ({ error }) => {
-  return error ? <div className="bg-red-400">{error}</div> : null;
+  return error ? <div className="fixed text-red-400">{error}</div> : null;
 };
 
 export default FormError;

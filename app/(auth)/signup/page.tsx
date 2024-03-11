@@ -4,6 +4,7 @@ import { validPassword, validEmail, validUsername } from "../Validate/Validate";
 import FormError from "../SignUpLogin/FormError";
 import PasswordInput from "../SignUpLogin/PasswordInput";
 import EnteringChoice from "../SignUpLogin/EnteringChoice";
+import axios from "axios";
 
 interface SignupProps {
   onSubmit: (formData: { username: string; email: string; password: string; repassword: string }) => Promise<void>;
@@ -19,16 +20,17 @@ const SignupForm: React.FC<SignupProps> = ({ onSubmit, error }) => {
     email: '',
     password: '',
     repassword: '',
-    showPassword: [false, false],
   });
+  const [ showPassword, setShowPassword ] = useState([false, false])
   const [isLoading, setIsLoading] = useState(false);
-  const [signupError, setSignupError] = useState('');
+  const [signupError, setSignupError] = useState<string | null>(null);
 
   const handleTogglePasswordVisibility = (index: number) => {
-    const updatedPassword = [...formData.showPassword];
+    const updatedPassword = [...showPassword];
     updatedPassword[index] = !updatedPassword[index];
-    setFormData({ ...formData, showPassword: updatedPassword });
+    setShowPassword(updatedPassword);
   };
+  
 
   const handleSignupSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,49 +38,49 @@ const SignupForm: React.FC<SignupProps> = ({ onSubmit, error }) => {
     setIsLoading(true);
   
     if (!validUsername.test(formData.username)) {
-      setSignupError('UserName length >5 Letter, Number, -, _');
+      setSignupError("UserName length >5 Letter, Number, -, _");
+      setTimeout(() => setSignupError(null), 3000);
       setIsLoading(false);
       return;
     } else if (!validEmail.test(formData.email)) {
         setSignupError('Invalid email address');
+        setTimeout(() => setSignupError(null), 3000);
         setIsLoading(false);
         return;
     } else if (!validPassword.test(formData.password)) {
       setSignupError('Password length >6 Letter(begin UpperCase), Number, Special characters');
+      setTimeout(() => setSignupError(null), 3000);
       setIsLoading(false);
       return;
     } else if (formData.password !== formData.repassword) {
       setSignupError('Passwords do not match');
+      setTimeout(() => setSignupError(null), 3000);
       setIsLoading(false);
       return;
     }
   
-    setSignupError('');
+    setSignupError(null);
   
     try {
-      const response = await fetch('http://localhost:5000/api/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await axios.post('/api/users/signup', formData);
   
-      const data = await response.json();
-  
-      if (response.ok && data.success) {
-        // Signup successful, handle user data
-        console.log(data.user);
+      if (response.data.success) {
+        setSignupError(null);
+        setTimeout(() => setSignupError(null), 3000);
+        setFormData({username: '', email: '', password: '', repassword: ''})
+        setShowPassword([false, false]);
       } else {
-        // Signup failed, set error message
-        setSignupError(data.error || 'Signup failed');
+        setSignupError(response.data.error);
+        setTimeout(() => setSignupError(null), 3000);
       }
     } catch (error:any) {
       // Request failed, set error message
       setSignupError(error.message);
+      setTimeout(() => setSignupError(null), 3000);
+    } finally{
+      setIsLoading(false);
     }
   
-    setIsLoading(false);
   };
   
 
@@ -92,11 +94,12 @@ const SignupForm: React.FC<SignupProps> = ({ onSubmit, error }) => {
       <form
         autoComplete="off"
         onSubmit={handleSignupSubmit}
-        className="flex w-full sm:w-96 gap-8 py-10 items-center flex-col border rounded-br-xl rounded-tl-xl drop-shadow-md outline outline-2 outline-backGroundGreen"
+        className="flex w-full sm:w-96 gap-8 py-6 items-center flex-col border rounded-br-xl rounded-tl-xl drop-shadow-md outline outline-2 outline-backGroundGreen"
       >
-        <EnteringChoice />
-
-        <FormError error={(!signupError && error) ? error : signupError} />
+        <FormError error={(signupError || error)} />
+        <div className="pt-10">
+          <EnteringChoice />
+        </div>
 
         <div className="w-3/4">
           <input
@@ -124,15 +127,17 @@ const SignupForm: React.FC<SignupProps> = ({ onSubmit, error }) => {
         <PasswordInput
           value={formData.password}
           onChange={(value: any) => setFormData({ ...formData, password: value })}
-          showPassword={formData.showPassword[0]}
+          showPassword={showPassword[0]}
           onTogglePasswordVisibility={() => handleTogglePasswordVisibility(0)}
+          label="Password"
         />
 
         <PasswordInput
           value={formData.repassword}
           onChange={(value: any) => setFormData({ ...formData, repassword: value })}
-          showPassword={formData.showPassword[1]}
+          showPassword={showPassword[1]}
           onTogglePasswordVisibility={() => handleTogglePasswordVisibility(1)}
+          label="Re-enter Password"
         />
 
         <div className="self-start ml-10">

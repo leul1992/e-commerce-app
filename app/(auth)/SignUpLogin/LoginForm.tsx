@@ -5,7 +5,7 @@ import PasswordInput from '../SignUpLogin/PasswordInput';;
 import EnteringChoice from '../SignUpLogin/EnteringChoice';
 import axios from 'axios';
 import { login } from '@/lib/features/user/userSlice';
-import {useAppDispatch, useAppSelector} from '@/lib/hooks'
+import { useAppDispatch, useAppSelector } from '@/lib/hooks'
 import { useRouter } from 'next/navigation';
 import { selectUser } from '@/lib/features/user/userSlice';
 
@@ -17,7 +17,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ error }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [loginError, setLoginError] = useState('');
+  const [loginError, setLoginError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
@@ -44,52 +44,49 @@ const LoginForm: React.FC<LoginFormProps> = ({ error }) => {
         break;
     }
   };
-  
+
 
   const handleLoginSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-  
+
     try {
-      const response = await axios.post('http://localhost:5000/api/login', {
+      const response = await axios.post('/api/users/login', {
         username,
-        password, 
-      }, {
-        headers: {
-          "Content-Type": 'application/json'
-        },
-        withCredentials: true
+        password,
       });
-  
-      if (response.status === 200 && response.data.success) {
+
+      if (response.data.success) {
         // Login successful, handle user data
-        dispatch(login(response.data.user));
+        dispatch(login());
         console.log(response)
 
         router.push('/')
       } else {
         // Login failed, set error message
         setLoginError(response.data.error || 'Login failed');
+        setTimeout(() => setLoginError(null), 3000);
       }
-    } catch (error:any) {
+    } catch (error: any) {
       // Request failed, set error message
       setLoginError(error.message);
+      setTimeout(() => setLoginError(null), 3000);
     }
-  
+
     setLoading(false);
   };
-  
+
 
   return (
     <div className="flex justify-center items-center h-screen">
       <form
         onSubmit={handleLoginSubmit}
-        className="flex w-full sm:w-96 gap-8 py-10 items-center flex-col border rounded-br-xl rounded-tl-xl drop-shadow-md outline outline-2 outline-backGroundGreen"
+        className="flex w-full sm:w-96 gap-8 py-6 items-center flex-col border rounded-br-xl rounded-tl-xl drop-shadow-md outline outline-2 outline-backGroundGreen"
       >
-        <div>{userState.isLoggedIn? "logged in":"not logged in yet"}</div>
-        <EnteringChoice />
-
-        <FormError error={error || loginError} />
+        <FormError error={(loginError || error)} />
+        <div className='pt-10'>
+          <EnteringChoice />
+        </div>
 
         <div className='w-3/4'>
           <input
@@ -108,6 +105,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ error }) => {
           onChange={(value: React.SetStateAction<string>) => setPassword(value)}
           showPassword={showPassword}
           onTogglePasswordVisibility={handleTogglePasswordVisibility}
+          label="Password"
         />
 
         <div className='self-start ml-10'>

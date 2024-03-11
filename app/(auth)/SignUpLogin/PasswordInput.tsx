@@ -6,15 +6,16 @@ interface PasswordInputProps {
   onChange: (value: string) => void;
   showPassword: boolean;
   onTogglePasswordVisibility: () => void;
+  label: string;
 }
 
-const PasswordInput: React.FC<PasswordInputProps> = ({ value, onChange, showPassword, onTogglePasswordVisibility }) => {
+const PasswordInput: React.FC<PasswordInputProps> = ({ value, onChange, showPassword, onTogglePasswordVisibility, label }) => {
   return (
     <div className="flex w-3/4 border-b bg-white border-stone-400">
       <input
-        id="password"
-        name="password"
-        placeholder="Password"
+        id={label}
+        name={label}
+        placeholder={label}
         type={showPassword ? 'text' : 'password'}
         value={value}
         onChange={(e) => onChange(e.target.value)}
