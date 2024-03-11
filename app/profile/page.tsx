@@ -4,8 +4,7 @@ import Loading from '../loading';
 import { useUserData } from './getUserData';
 
 function ProfileDetail() {
-    const {userData, loading, error} = useUserData();
-
+    const {userData, error} = useUserData();
     return (
         <div>
             {userData ? (
